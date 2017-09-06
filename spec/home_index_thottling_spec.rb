@@ -10,6 +10,7 @@ RSpec.describe HomeController do
 
   before do
     ENV['rate_limit'] = rate_limit
+    Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
   end
 
   describe 'a single request' do

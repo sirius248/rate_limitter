@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/kimquy/rate_limitter.svg?branch=master)](https://travis-ci.org/kimquy/rate_limitter)
 
-# Testing
+# Manual Testing
 
 * Make a single request from command line with Curl
 
@@ -18,4 +18,10 @@ curl https://ln-rate-limitter.herokuapp.com/home/index
 
 ```bash
 for i in {1..5}; do curl https://ln-rate-limitter.herokuapp.com/home/index; done
+```
+
+# Unit test
+
+```ruby
+bundle exec rspec
 ```
