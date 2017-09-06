@@ -5,5 +5,5 @@ class Rack::Attack
 end
 
 Rack::Attack.throttled_response = lambda do |_env|
-  [429, {}, ["Rate limit exceeded. Try again in #{10.minutes}\n"]]
+  [429, {}, ["Rate limit exceeded. Try again in #{10.minutes} seconds\n"]]
 end
