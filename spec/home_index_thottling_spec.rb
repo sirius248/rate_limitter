@@ -14,11 +14,27 @@ RSpec.describe HomeController do
 
   describe 'a single request' do
     let(:key) { "rack::attack:#{Time.current.to_i / period}:req/ip:1.2.3.4" }
-    
+
     before { get '/home/index', {}, 'REMOTE_ADDR' => '1.2.3.4' }
 
     it 'should set the counter for one request' do
       expect(Rack::Attack.cache.store.read(key)).to eq(1)
+      expect(last_response.status).to eq(200)
+      expect(last_response.body).to eq("ok")
+    end
+  end
+
+  describe 'multiple requests' do
+    let(:key) { "rack::attack:#{Time.current.to_i / period}:req/ip:1.2.3.6" }
+
+    before do
+      4.times do
+        get '/home/index', {}, 'REMOTE_ADDR' => '1.2.3.6'
+      end
+    end
+
+    it 'should set the counter for one request' do
+      expect(Rack::Attack.cache.store.read(key)).to eq(4)
       expect(last_response.status).to eq(200)
       expect(last_response.body).to eq("ok")
     end
